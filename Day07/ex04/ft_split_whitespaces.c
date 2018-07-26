@@ -6,13 +6,13 @@
 /*   By: mamaurer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 09:34:06 by mamaurer          #+#    #+#             */
-/*   Updated: 2018/07/25 09:02:03 by mamaurer         ###   ########.fr       */
+/*   Updated: 2018/07/26 17:48:34 by mamaurer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int		how_much_words(char *str)
+int		how_many_words(char *str)
 {
 	int i;
 	int nw;
@@ -51,7 +51,7 @@ char	*ft_strcpy(char *src, int i)
 
 	j = 0;
 	dest = malloc(sizeof(char) * (hma(src, i)));
-	if (hma(src, i) == 0)
+	if (dest == NULL)
 		return (NULL);
 	while (src[i] != 0 && src[i] != 9 && src[i] != 32 && src[i] != 10)
 	{
@@ -68,23 +68,24 @@ char	**ft_split_whitespaces(char *str)
 	char	**tab;
 	int		i;
 	int		j;
+	int		taille;
 
 	i = 0;
 	j = 0;
-	if (how_much_words(str) <= 0)
+	taille = how_many_words(str);
+	tab = malloc(sizeof(*tab) * (taille + 1));
+	if (tab == NULL)
 		return (NULL);
-	tab = malloc(sizeof(*tab) * (how_much_words(str) + 1));
-	while (j < how_much_words(str))
+	while (j < taille)
 	{
 		if (str[i] != '\0' && str[i] != 9 && str[i] != 32 && str[i] != 10)
 		{
 			tab[j] = ft_strcpy(str, i);
-			while (str[i] != 9 && str[i] != 32 && str[i] != 10)
+			while (str[i] != 9 && str[i] != 32 && str[i] != 10 && str[i])
 				i++;
 			j++;
 		}
-		else
-			i++;
+		i++;
 	}
 	tab[j] = 0;
 	return (tab);

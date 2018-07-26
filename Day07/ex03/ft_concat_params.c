@@ -6,13 +6,13 @@
 /*   By: mamaurer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 07:30:04 by mamaurer          #+#    #+#             */
-/*   Updated: 2018/07/25 09:35:03 by mamaurer         ###   ########.fr       */
+/*   Updated: 2018/07/26 16:16:55 by mamaurer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-char	*ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src, int count, int ac)
 {
 	int i;
 	int j;
@@ -25,9 +25,11 @@ char	*ft_strcat(char *dest, char *src)
 	{
 		dest[i + j] = src[j];
 		j++;
+		if (count == ac - 2)
+			dest[i + j] = '\0';
+		else
+			dest[i + j] = '\n';
 	}
-	dest[i + j] = '\n';
-	dest[i + j + 1] = '\0';
 	return (dest);
 }
 
@@ -52,7 +54,7 @@ char	*ft_concat_params(int argc, char **argv)
 	i = 0;
 	while (i < argc - 1)
 	{
-		str = ft_strcat(str, argv[i + 1]);
+		str = ft_strcat(str, argv[i + 1], i, argc);
 		i++;
 	}
 	return (str);
